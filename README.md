@@ -7,3 +7,9 @@ This project is primarily an attempt to learn SFML.
 Preview below:
 
 ![Chessboard Screenshot](images/chess-board-preview.png)
+
+
+Chess piece images sourced from Wikimedia Commons  
+Original creator: Cburnett  
+License: CC BY-SA 3.0  
+https://creativecommons.org/licenses/by-sa/3.0/
