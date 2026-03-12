@@ -27,45 +27,27 @@ int main()
 
         float x_position{ 0 };
         float y_position{ 0 };
-        for (int row{ 1 }; row <= 8; ++row) 
+
+        for (int row{ 1 }; row <= 8; ++row)
         {
             y_position = row * 100;
-            if (row % 2 != 0)
+
+            for (int column{ 1 }; column <= 8; ++column)
             {
-                for (int column{ 1 }; column <= 8; ++column)
+                x_position = column * 100;
+
+                if ((row + column) % 2 == 0)
                 {
-                    x_position = column * 100;
-                    if (column % 2 != 0)
-                    {
-                        white_square.setPosition(sf::Vector2f(x_position, y_position));
-                        window.draw(white_square);
-                    }
-                    else
-                    {
-                        black_square.setPosition(sf::Vector2f(x_position, y_position));
-                        window.draw(black_square);
-                    }
+                    white_square.setPosition(sf::Vector2f(x_position, y_position));
+                    window.draw(white_square);
                 }
-            }
-            else
-            {
-                for (int column{ 1 }; column <= 8; ++column)
+                else
                 {
-                    x_position = column * 100;
-                    if (column % 2 != 0)
-                    {
-                        black_square.setPosition(sf::Vector2f(x_position, y_position));
-                        window.draw(black_square);
-                    }
-                    else
-                    {
-                        white_square.setPosition(sf::Vector2f(x_position, y_position));
-                        window.draw(white_square);
-                    }
+                    black_square.setPosition(sf::Vector2f(x_position, y_position));
+                    window.draw(black_square);
                 }
             }
         }
-
 
         window.display();
     }
