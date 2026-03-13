@@ -1,7 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <fstream>
 
 int main()
 {
+    std::cout << "Working directory: " << std::filesystem::current_path() << std::endl;
+
     sf::RenderWindow window(sf::VideoMode({ 1000, 1000 }), "Chess Board");
 
     sf::RectangleShape boarder_square(sf::Vector2f(840.f, 840.f));
@@ -13,6 +17,19 @@ int main()
 
     sf::RectangleShape black_square(sf::Vector2f(100.f, 100.f));
     black_square.setFillColor(sf::Color::Black);
+
+    //sf::Texture texture("images/king_white.png"); // Throws sf::Exception if an error occurs
+
+    sf::Texture texture;
+    if (!texture.loadFromFile("images/king_white.png"))
+    {
+        // error...
+        std::cout << "Error";
+    }
+
+    sf::Sprite sprite(texture);
+
+    sprite.setPosition({ 300.f, 500.f });
 
     while (window.isOpen())
     {
@@ -48,6 +65,8 @@ int main()
                 }
             }
         }
+        
+        window.draw(sprite);
 
         window.display();
     }

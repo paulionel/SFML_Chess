@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="SFML_Chess.vcxproj" />
+  <Project Path="SFML_Chess.vcxproj" Id="88ebb2da-310b-45b5-b9ae-5c54da666c1e" />
 </Solution>
