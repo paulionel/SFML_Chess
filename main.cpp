@@ -2,6 +2,39 @@
 #include <iostream>
 #include <fstream>
 
+void drawBoard(sf::RenderWindow& window)
+{
+    sf::RectangleShape white_square(sf::Vector2f(100.f, 100.f));
+    white_square.setFillColor(sf::Color::White);
+
+    sf::RectangleShape black_square(sf::Vector2f(100.f, 100.f));
+    black_square.setFillColor(sf::Color::Black);
+
+    float x_position{ 0 };
+    float y_position{ 0 };
+
+    for (int row{ 1 }; row <= 8; ++row)
+    {
+        y_position = row * 100;
+
+        for (int column{ 1 }; column <= 8; ++column)
+        {
+            x_position = column * 100;
+
+            if ((row + column) % 2 == 0)
+            {
+                white_square.setPosition(sf::Vector2f(x_position, y_position));
+                window.draw(white_square);
+            }
+            else
+            {
+                black_square.setPosition(sf::Vector2f(x_position, y_position));
+                window.draw(black_square);
+            }
+        }
+    }
+}
+
 int main()
 {
     std::cout << "Working directory: " << std::filesystem::current_path() << std::endl;
@@ -12,18 +45,11 @@ int main()
     boarder_square.setFillColor(sf::Color::Red);
     boarder_square.setPosition(sf::Vector2f(80.f, 80.f));
 
-    sf::RectangleShape white_square(sf::Vector2f(100.f, 100.f));
-    white_square.setFillColor(sf::Color::White);
 
-    sf::RectangleShape black_square(sf::Vector2f(100.f, 100.f));
-    black_square.setFillColor(sf::Color::Black);
-
-    //sf::Texture texture("images/king_white.png"); // Throws sf::Exception if an error occurs
 
     sf::Texture texture;
     if (!texture.loadFromFile("images/king_white.png"))
     {
-        // error...
         std::cout << "Error";
     }
 
@@ -42,29 +68,7 @@ int main()
         window.clear();
         window.draw(boarder_square);
 
-        float x_position{ 0 };
-        float y_position{ 0 };
-
-        for (int row{ 1 }; row <= 8; ++row)
-        {
-            y_position = row * 100;
-
-            for (int column{ 1 }; column <= 8; ++column)
-            {
-                x_position = column * 100;
-
-                if ((row + column) % 2 == 0)
-                {
-                    white_square.setPosition(sf::Vector2f(x_position, y_position));
-                    window.draw(white_square);
-                }
-                else
-                {
-                    black_square.setPosition(sf::Vector2f(x_position, y_position));
-                    window.draw(black_square);
-                }
-            }
-        }
+        drawBoard(window);
         
         window.draw(sprite);
 
