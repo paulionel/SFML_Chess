@@ -58,11 +58,16 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 1000, 1000 }), "Chess Board");
 
+    // King - White
     sf::Texture kingWTexture = loadTexture("images/king_white.png");
-
     sf::Sprite kingW(kingWTexture);
-
     kingW.setPosition({ 500.f, 800.f });
+
+    // Queen - White
+    sf::Texture queenWTexture = loadTexture("images/queen_white.png");
+    sf::Sprite queenW(queenWTexture);
+    queenW.setPosition({ 400.f, 800.f });
+
 
     while (window.isOpen())
     {
@@ -77,6 +82,7 @@ int main()
         drawBoard(window);
         
         window.draw(kingW);
+        window.draw(queenW);
 
         window.display();
     }
