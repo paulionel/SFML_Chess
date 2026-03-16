@@ -8,6 +8,7 @@ Preview below:
 
 ![Chessboard Screenshot](images/chess-board-preview.png)
 
+This project uses SFML 3.0.2. To compile the project, install the Visual C++ 17 (Visual Studio 2022) build of SFML.
 
 Chess piece images sourced from Wikimedia Commons  
 Original creator: Cburnett  
