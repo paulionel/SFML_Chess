@@ -120,35 +120,7 @@ sf::Texture loadTexture(const std::string& path)
     return texture;
 }
 
-std::string getPiecePath(const uint8_t& piece)
-{
-    if (piece == 1)
-        return "images/pawn_white.png";
-    else if (piece == 2)
-        return "images/rook_white.png";
-    else if (piece == 3)
-        return "images/knight_white.png";
-    else if (piece == 4)
-        return "images/bishop_white.png";
-    else if (piece == 5)
-        return "images/queen_white.png";
-    else if (piece == 6)
-        return "images/king_white.png";
-    else if (piece == 9)
-        return "images/pawn_black.png";
-    else if (piece == 10)
-        return "images/rook_black.png";
-    else if (piece == 11)
-        return "images/knight_black.png";
-    else if (piece == 12)
-        return "images/bishop_black.png";
-    else if (piece == 13)
-        return "images/queen_black.png";
-    else if (piece == 14)
-        return "images/king_black.png";
-}
-
-void drawPieces(sf::RenderWindow& window)
+void drawPieces(sf::RenderWindow& window, sf::Texture textures[])
 {
     float x_position{ 0 };
     float y_position{ 0 };
@@ -162,8 +134,7 @@ void drawPieces(sf::RenderWindow& window)
 
             if (piece != EMPTY)
             {
-                sf::Texture texture = loadTexture(getPiecePath(piece));
-                sf::Sprite sprite(texture);
+                sf::Sprite sprite(textures[piece]);
                 sprite.setPosition({ x_position, y_position });
 
                 window.draw(sprite);
@@ -176,6 +147,22 @@ int main()
 {
 
     setupBoard();
+
+    sf::Texture textures[16];
+
+    textures[WHITE | PAWN].loadFromFile("images/pawn_white.png");
+    textures[WHITE | ROOK].loadFromFile("images/rook_white.png");
+    textures[WHITE | KNIGHT].loadFromFile("images/knight_white.png");
+    textures[WHITE | BISHOP].loadFromFile("images/bishop_white.png");
+    textures[WHITE | QUEEN].loadFromFile("images/queen_white.png");
+    textures[WHITE | KING].loadFromFile("images/king_white.png");
+
+    textures[BLACK | PAWN].loadFromFile("images/pawn_black.png");
+    textures[BLACK | ROOK].loadFromFile("images/rook_black.png");
+    textures[BLACK | KNIGHT].loadFromFile("images/knight_black.png");
+    textures[BLACK | BISHOP].loadFromFile("images/bishop_black.png");
+    textures[BLACK | QUEEN].loadFromFile("images/queen_black.png");
+    textures[BLACK | KING].loadFromFile("images/king_black.png");
 
     //getBoard();
 
@@ -193,7 +180,7 @@ int main()
 
         drawBoard(window);
 
-        drawPieces(window);
+        drawPieces(window, textures);
 
         window.display();
     }
