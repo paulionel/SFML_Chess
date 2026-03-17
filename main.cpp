@@ -110,6 +110,7 @@ void drawBoard(sf::RenderWindow& window)
     }
 }
 
+// Delete this probably
 sf::Texture loadTexture(const std::string& path)
 {
     sf::Texture texture;
@@ -120,7 +121,7 @@ sf::Texture loadTexture(const std::string& path)
     return texture;
 }
 
-void drawPieces(sf::RenderWindow& window, sf::Texture textures[])
+void drawPieces(sf::RenderWindow& window, const sf::Texture textures[])
 {
     float x_position{ 0 };
     float y_position{ 0 };
@@ -174,6 +175,20 @@ int main()
         {
             if (event->is<sf::Event::Closed>())
                 window.close();
+
+            if (event->is<sf::Event::MouseButtonPressed>())
+            {
+                auto mouse = event->getIf<sf::Event::MouseButtonPressed>();
+
+                if (mouse->button == sf::Mouse::Button::Left)
+                {
+                    int mouseX = mouse->position.x;
+                    int mouseY = mouse->position.y;
+
+                    std::cout << "Mouse X Position: " << mouseX << '\n';
+                    std::cout << "Mouse Y Position: " << mouseY << '\n';
+                }
+            }
         }
 
         window.clear();
