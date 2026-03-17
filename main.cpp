@@ -72,11 +72,11 @@ void drawBoard(sf::RenderWindow& window)
 {
 
     // Draw the outside border of the chess board
-    sf::RectangleShape boarder_square(sf::Vector2f(840.f, 840.f));
-    boarder_square.setFillColor(sf::Color(97, 100, 103));
-    boarder_square.setPosition(sf::Vector2f(80.f, 80.f));
+    sf::RectangleShape border_square(sf::Vector2f(840.f, 840.f));
+    border_square.setFillColor(sf::Color(97, 100, 103));
+    border_square.setPosition(sf::Vector2f(80.f, 80.f));
 
-    window.draw(boarder_square);
+    window.draw(border_square);
 
     // Draw each square of the chessboard
     sf::RectangleShape white_square(sf::Vector2f(100.f, 100.f));
