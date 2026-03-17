@@ -8,7 +8,7 @@ This project is primarily an attempt to learn SFML.
 
 Preview below:
 
-![Chessboard Screenshot](images/chess-board-preview.png)
+![Chessboard Screenshot](images/chess-board-preview.png?v=2)
 
 ## Requirements
 
