@@ -73,17 +73,17 @@ void drawBoard(sf::RenderWindow& window)
 
     // Draw the outside border of the chess board
     sf::RectangleShape boarder_square(sf::Vector2f(840.f, 840.f));
-    boarder_square.setFillColor(sf::Color::Red);
+    boarder_square.setFillColor(sf::Color(97, 100, 103));
     boarder_square.setPosition(sf::Vector2f(80.f, 80.f));
 
     window.draw(boarder_square);
 
     // Draw each square of the chessboard
     sf::RectangleShape white_square(sf::Vector2f(100.f, 100.f));
-    white_square.setFillColor(sf::Color(235, 236, 208));
+    white_square.setFillColor(sf::Color(228, 240, 242));
 
     sf::RectangleShape black_square(sf::Vector2f(100.f, 100.f));
-    black_square.setFillColor(sf::Color(115, 149, 82));
+    black_square.setFillColor(sf::Color(111, 150, 166));
 
     float x_position{ 0 };
     float y_position{ 0 };
