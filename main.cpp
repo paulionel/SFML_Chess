@@ -15,6 +15,9 @@ constexpr uint8_t BLACK = 8;      // 0000 1000
 constexpr uint8_t WHITE = 0;      // 0000 0000
 
 
+constexpr float TILE_SIZE = 100.f;
+
+
 uint8_t board[8][8]; // Just for now, eventually we will make this not global
 
 void setupBoard()
@@ -108,11 +111,11 @@ void drawBoard(sf::RenderWindow& window)
 
     for (int row{ 1 }; row <= 8; ++row)
     {
-        y_position = row * 100;
+        y_position = row * TILE_SIZE;
 
         for (int column{ 1 }; column <= 8; ++column)
         {
-            x_position = column * 100;
+            x_position = column * TILE_SIZE;
 
             if ((row + column) % 2 == 0)
             {
@@ -144,10 +147,10 @@ void drawPieces(sf::RenderWindow& window, const sf::Texture textures[])
     float y_position{ 0 };
     for (int row = 0; row < 8; ++row)
     {
-        y_position = (row + 1) * 100;
+        y_position = (row + 1) * TILE_SIZE;
         for (int col = 0; col < 8; ++col)
         {
-            x_position = (col + 1) * 100;
+            x_position = (col + 1) * TILE_SIZE;
             uint8_t piece = board[row][col];
 
             if (piece != EMPTY)
@@ -211,8 +214,8 @@ int main()
                     std::cout << "Mouse X Position: " << mouseX << '\n';
                     std::cout << "Mouse Y Position: " << mouseY << '\n';
 
-                    selectedX = (mouseX / 100);
-                    selectedY = (mouseY / 100);
+                    selectedX = static_cast<float>(mouseX / 100);
+                    selectedY = static_cast<float>(mouseY / 100);
 
                     std::cout << "Selected X Position: " << selectedX << '\n';
                     std::cout << "Selected Y Position: " << selectedY << '\n';
