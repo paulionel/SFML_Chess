@@ -80,11 +80,15 @@ void drawCircle(sf::RenderWindow& window, float x, float y)
     window.draw(circle);
 }
 
-void drawHighlight(sf::RenderWindow& window, float& x, float& y)
+void drawHighlight(sf::RenderWindow& window, int x, int y)
 {
     sf::RectangleShape highlight(sf::Vector2f(100.f, 100.f));
     highlight.setFillColor(sf::Color(113, 198, 217));
-    highlight.setPosition(sf::Vector2f(x * 100, y * 100));
+
+    highlight.setPosition(sf::Vector2f(
+        static_cast<float>(x) * TILE_SIZE,
+        static_cast<float>(y) * TILE_SIZE
+    ));
 
     window.draw(highlight);
 }
@@ -191,8 +195,8 @@ int main()
 
     bool highlighted{};
 
-    float selectedX{};
-    float selectedY{};
+    int selectedX{};
+    int selectedY{};
 
     while (window.isOpen())
     {
@@ -214,8 +218,8 @@ int main()
                     std::cout << "Mouse X Position: " << mouseX << '\n';
                     std::cout << "Mouse Y Position: " << mouseY << '\n';
 
-                    selectedX = static_cast<float>(mouseX / 100);
-                    selectedY = static_cast<float>(mouseY / 100);
+                    selectedX = mouseX / 100;
+                    selectedY = mouseY / 100;
 
                     std::cout << "Selected X Position: " << selectedX << '\n';
                     std::cout << "Selected Y Position: " << selectedY << '\n';
