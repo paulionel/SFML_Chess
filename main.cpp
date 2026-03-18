@@ -128,15 +128,14 @@ void drawBoard(sf::RenderWindow& window)
     }
 }
 
-// Delete this probably
-sf::Texture loadTexture(const std::string& path)
+bool loadTexture(sf::Texture& texture, const std::string& path)
 {
-    sf::Texture texture;
     if (!texture.loadFromFile(path))
     {
-        std::cout << "Failed to load texture: " << path << "\n";
+        std::cout << "Failed to load texture: " << path << '\n';
+        return false;
     }
-    return texture;
+    return true;
 }
 
 void drawPieces(sf::RenderWindow& window, const sf::Texture textures[])
@@ -169,19 +168,19 @@ int main()
 
     sf::Texture textures[16];
 
-    textures[WHITE | PAWN].loadFromFile("images/pawn_white.png");
-    textures[WHITE | ROOK].loadFromFile("images/rook_white.png");
-    textures[WHITE | KNIGHT].loadFromFile("images/knight_white.png");
-    textures[WHITE | BISHOP].loadFromFile("images/bishop_white.png");
-    textures[WHITE | QUEEN].loadFromFile("images/queen_white.png");
-    textures[WHITE | KING].loadFromFile("images/king_white.png");
+    loadTexture(textures[WHITE | PAWN], "images/pawn_white.png");
+    loadTexture(textures[WHITE | ROOK], "images/rook_white.png");
+    loadTexture(textures[WHITE | KNIGHT], "images/knight_white.png");
+    loadTexture(textures[WHITE | BISHOP], "images/bishop_white.png");
+    loadTexture(textures[WHITE | QUEEN], "images/queen_white.png");
+    loadTexture(textures[WHITE | KING], "images/king_white.png");
 
-    textures[BLACK | PAWN].loadFromFile("images/pawn_black.png");
-    textures[BLACK | ROOK].loadFromFile("images/rook_black.png");
-    textures[BLACK | KNIGHT].loadFromFile("images/knight_black.png");
-    textures[BLACK | BISHOP].loadFromFile("images/bishop_black.png");
-    textures[BLACK | QUEEN].loadFromFile("images/queen_black.png");
-    textures[BLACK | KING].loadFromFile("images/king_black.png");
+    loadTexture(textures[BLACK | PAWN], "images/pawn_black.png");
+    loadTexture(textures[BLACK | ROOK], "images/rook_black.png");
+    loadTexture(textures[BLACK | KNIGHT], "images/knight_black.png");
+    loadTexture(textures[BLACK | BISHOP], "images/bishop_black.png");
+    loadTexture(textures[BLACK | QUEEN], "images/queen_black.png");
+    loadTexture(textures[BLACK | KING], "images/king_black.png");
 
     //getBoard();
 
