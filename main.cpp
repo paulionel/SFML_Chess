@@ -68,6 +68,15 @@ void getBoard()
     }
 }
 
+void drawHighlight(sf::RenderWindow& window, float& x, float& y)
+{
+    sf::RectangleShape highlight(sf::Vector2f(100.f, 100.f));
+    highlight.setFillColor(sf::Color(113, 198, 217));
+    highlight.setPosition(sf::Vector2f(x * 100, y * 100));
+
+    window.draw(highlight);
+}
+
 void drawBoard(sf::RenderWindow& window)
 {
 
@@ -169,8 +178,14 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode({ 1000, 1000 }), "Chess Board");
 
+    bool highlighted{};
+
+    float selectedX{};
+    float selectedY{};
+
     while (window.isOpen())
     {
+        
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
@@ -187,6 +202,14 @@ int main()
 
                     std::cout << "Mouse X Position: " << mouseX << '\n';
                     std::cout << "Mouse Y Position: " << mouseY << '\n';
+
+                    selectedX = (mouseX / 100);
+                    selectedY = (mouseY / 100);
+
+                    std::cout << "Selected X Position: " << selectedX << '\n';
+                    std::cout << "Selected Y Position: " << selectedY << '\n';
+
+                    highlighted = true;
                 }
             }
         }
@@ -194,6 +217,9 @@ int main()
         window.clear();
 
         drawBoard(window);
+
+        if (highlighted)
+            drawHighlight(window, selectedX, selectedY);
 
         drawPieces(window, textures);
 
