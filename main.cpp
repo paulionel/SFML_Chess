@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "Game.hpp"
 #include "GameLogic.hpp"
 #include "Renderer.hpp"
 #include <iostream>
@@ -8,7 +9,8 @@
 int main()
 {
 
-    setupBoard();
+    // setupBoard(); // Trying to get rid of
+    Game game;
 
     sf::Texture textures[16];
 
@@ -59,9 +61,10 @@ int main()
                     std::cout << "Selected X Position: " << selectedX << '\n';
                     std::cout << "Selected Y Position: " << selectedY << '\n';
 
-                    if (static_cast<int>(board[(mouseY / 100) - 1][(mouseX / 100) - 1]) != 0)
+                    // if (static_cast<int>(board[(mouseY / 100) - 1][(mouseX / 100) - 1]) != 0)
+                    if (static_cast<int>(game.getPieceAt((mouseX / 100) - 1,(mouseY / 100) - 1)) != 0)
                     {
-                        std::cout << "Hit Piece: " << static_cast<int>(board[(mouseY / 100) - 1][(mouseX / 100) - 1]) << '\n';
+                        std::cout << "Hit Piece: " << static_cast<int>(game.getPieceAt((mouseX / 100) - 1, (mouseY / 100) - 1)) << '\n';
                         highlighted = true;
                     } 
                     else
@@ -82,7 +85,7 @@ int main()
         drawCircle(window, 5, 5);
         drawCircle(window, 5, 6);
 
-        drawPieces(window, textures);
+        drawPieces(window, textures, game.getCurrentBoard());
 
         window.display();
     }

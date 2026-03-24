@@ -133,11 +133,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Board.hpp" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="GameLogic.hpp" />
     <ClInclude Include="Renderer.hpp" />
   </ItemGroup>

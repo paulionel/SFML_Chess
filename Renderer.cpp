@@ -75,7 +75,7 @@ void drawCircle(sf::RenderWindow& window, float x, float y)
     window.draw(circle);
 }
 
-void drawPieces(sf::RenderWindow& window, const sf::Texture textures[])
+void drawPieces(sf::RenderWindow& window, const sf::Texture textures[], Board& currentBoard)
 {
     float x_position{ 0 };
     float y_position{ 0 };
@@ -85,7 +85,8 @@ void drawPieces(sf::RenderWindow& window, const sf::Texture textures[])
         for (int col = 0; col < 8; ++col)
         {
             x_position = (col + 1) * TILE_SIZE;
-            uint8_t piece = board[row][col];
+            //uint8_t piece = board[row][col];
+            uint8_t piece = currentBoard.get(col, row);
 
             if (piece != EMPTY)
             {
