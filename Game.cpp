@@ -42,3 +42,8 @@ Board& Game::getCurrentBoard()
 {
     return currentBoard;
 }
+
+int Game::getCurrentTurn()
+{
+    return currentTurn;
+}

@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <vector>
 #include <utility>
+#include "Board.hpp"
 
 // Piece and Color definitions
 constexpr uint8_t EMPTY = 0;      // 0000 0000
@@ -15,4 +16,4 @@ constexpr uint8_t PIECE_MASK = 7; // 0000 0111
 constexpr uint8_t BLACK = 8;      // 0000 1000
 constexpr uint8_t WHITE = 0;      // 0000 0000
 
-std::vector<std::pair<int, int>> getPossibleRookMoves();
+std::vector<std::pair<int, int>> getPossibleRookMoves(int x, int y, Board& currentBoard, int currentTurn);

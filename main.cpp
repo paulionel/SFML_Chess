@@ -9,8 +9,19 @@
 int main()
 {
 
-    // setupBoard(); // Trying to get rid of
     Game game;
+
+    game.makeMove(0, 6, 0, 4);
+    game.makeMove(0, 1, 0, 2);
+    game.makeMove(0, 7, 0, 5);
+    game.makeMove(0, 2, 0, 3);
+    game.makeMove(0, 5, 4, 5);
+    game.makeMove(0, 3, 0, 4);
+    game.makeMove(4, 5, 4, 4);
+
+    // need another turn to actually test white rook possible moves
+
+    getPossibleRookMoves(4, 4, game.getCurrentBoard(), game.getCurrentTurn());
 
     sf::Texture textures[16];
 
@@ -86,6 +97,8 @@ int main()
         drawCircle(window, 5, 6);
 
         drawPieces(window, textures, game.getCurrentBoard());
+
+    
 
         window.display();
     }

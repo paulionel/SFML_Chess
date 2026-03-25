@@ -11,6 +11,7 @@ public:
     void makeMove(int, int, int, int);
     uint8_t getPieceAt(int, int);
     Board& getCurrentBoard();
+    int getCurrentTurn();
 
 private:
     Board currentBoard{};
