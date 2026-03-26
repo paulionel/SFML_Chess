@@ -1,58 +1,121 @@
 #include "GameLogic.hpp"
 #include <iostream>
 
+bool canAttack(int x, int y, Board& currentBoard, int currentTurn)
+{
+	if (currentBoard.get(x, y) & BLACK)
+	{
+		// The piece is black
+		if (currentTurn % 2 == 0)
+		{
+			// It's white's turn
+			return true;
+		}
+		else
+		{
+			// It's black's turn
+			return false;
+		}
+	}
+	else
+	{
+		// The piece is white
+		if (currentTurn % 2 == 0)
+		{
+			// It's white's turn
+			return false;
+		}
+		else
+		{
+			// It's black's turn
+			return true;
+		}
+	}
+}
+
 std::vector<std::pair<int, int>> getPossibleRookMoves(int x, int y, Board& currentBoard, int currentTurn)
 {
 	std::vector<std::pair<int, int>> possibleMoves{};
 
-	std::pair<int, int> p1 = { 1, 1 };
-
-	possibleMoves.push_back(p1);
-
+	// Checks down
 	for (int i = y + 1; i <= 7; i++)
 	{
-		std::cout << "Piece at " << x << ", " << i << ": " << static_cast<int>(currentBoard.get(x, i)) << '\n';
 		std::cout << "Current Turn: " << currentTurn << '\n';
+		std::cout << "Piece at " << x << ", " << i << ": " << static_cast<int>(currentBoard.get(x, i)) << '\n';
 
 		if (static_cast<int>(currentBoard.get(x, i)) != 0)
 		{
-			if (currentBoard.get(x, i) & BLACK)
+			if (canAttack(x, i, currentBoard, currentTurn))
 			{
-				std::cout << "Piece is black" << '\n';
-				if (currentTurn % 2 == 0)
-				{
-					std::cout << "It's whites's turn. You can't attack that piece" << '\n';
-				}
-				else
-				{
-					std::cout << "It's black's turn. You can attack that piece" << '\n';
-				}
+				possibleMoves.push_back(std::pair<int, int> {x, i});
 			}
-			else
-			{
-				std::cout << "Piece is white" << '\n';
-				if (currentTurn % 2 == 0)
-				{
-					std::cout << "It's whites's turn. You can't attack that piece" << '\n';
-				}
-				else
-				{
-					std::cout << "It's black's turn. You can attack that piece" << '\n';
-				}
-			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {x, i});
 		}
 	}
+
+	// Checks up
 	for (int i = y - 1; i >= 0; i--)
 	{
 		std::cout << "Piece at " << x << ", " << i << ": " << static_cast<int>(currentBoard.get(x, i)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(x, i)) != 0)
+		{
+			if (canAttack(x, i, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {x, i});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {x, i});
+		}
 	}
+
+	// Checks right
 	for (int i = x + 1; i <= 7; i++)
 	{
 		std::cout << "Piece at " << i << ", " << y << ": " << static_cast<int>(currentBoard.get(i, y)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(i, y)) != 0)
+		{
+			if (canAttack(i, y, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {i, y});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {i, y});
+		}
 	}
+
+	// Checks left
 	for (int i = x - 1; i >= 0; i--)
 	{
 		std::cout << "Piece at " << i << ", " << y << ": " << static_cast<int>(currentBoard.get(i, y)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(i, y)) != 0)
+		{
+			if (canAttack(i, y, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {i, y});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {i, y});
+		}
 	}
 
 	return possibleMoves;

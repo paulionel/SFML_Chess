@@ -18,10 +18,16 @@ int main()
     game.makeMove(0, 5, 4, 5);
     game.makeMove(0, 3, 0, 4);
     game.makeMove(4, 5, 4, 4);
+    game.makeMove(7, 1, 7, 2);
 
     // need another turn to actually test white rook possible moves
 
-    getPossibleRookMoves(4, 4, game.getCurrentBoard(), game.getCurrentTurn());
+    std::vector<std::pair<int, int>> vec = getPossibleRookMoves(4, 4, game.getCurrentBoard(), game.getCurrentTurn());
+
+    for (const auto& [x, y] : vec)  // structured binding (C++17)
+    {
+        std::cout << "(" << x << ", " << y << ")\n";
+    }
 
     sf::Texture textures[16];
 
