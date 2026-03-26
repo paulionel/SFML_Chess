@@ -70,7 +70,7 @@ void drawCircle(sf::RenderWindow& window, float x, float y)
 {
     sf::CircleShape circle(10);
     circle.setFillColor(sf::Color(97, 100, 103));
-    circle.setPosition(sf::Vector2f((x * 100) + 40, (y * 100) + 40));
+    circle.setPosition(sf::Vector2f(((x + 1) * 100) + 40, ((y + 1) * 100) + 40));
 
     window.draw(circle);
 }

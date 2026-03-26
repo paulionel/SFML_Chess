@@ -20,11 +20,9 @@ int main()
     game.makeMove(4, 5, 4, 4);
     game.makeMove(7, 1, 7, 2);
 
-    // need another turn to actually test white rook possible moves
+    std::vector<std::pair<int, int>> possibleMoves = getPossibleRookMoves(4, 4, game.getCurrentBoard(), game.getCurrentTurn());
 
-    std::vector<std::pair<int, int>> vec = getPossibleRookMoves(4, 4, game.getCurrentBoard(), game.getCurrentTurn());
-
-    for (const auto& [x, y] : vec)  // structured binding (C++17)
+    for (const auto& [x, y] : possibleMoves)
     {
         std::cout << "(" << x << ", " << y << ")\n";
     }
@@ -99,12 +97,12 @@ int main()
         if (highlighted)
             drawHighlight(window, selectedX, selectedY);
 
-        drawCircle(window, 5, 5);
-        drawCircle(window, 5, 6);
-
         drawPieces(window, textures, game.getCurrentBoard());
 
-    
+        for (const auto& [x, y] : possibleMoves)
+        {
+            drawCircle(window, x, y);
+        }
 
         window.display();
     }
