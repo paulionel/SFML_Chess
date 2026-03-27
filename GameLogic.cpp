@@ -72,7 +72,6 @@ std::vector<std::pair<int, int>> getPossibleRookMoves(int x, int y, Board& curre
 	// Checks down
 	for (int i = y + 1; i <= 7; i++)
 	{
-		std::cout << "Current Turn: " << currentTurn << '\n';
 		std::cout << "Piece at " << x << ", " << i << ": " << static_cast<int>(currentBoard.get(x, i)) << '\n';
 
 		if (static_cast<int>(currentBoard.get(x, i)) != 0)
@@ -160,7 +159,6 @@ std::vector<std::pair<int, int>> getPossibleBishopMoves(int x, int y, Board& cur
 	// Checks down right
 	for (int i = y + 1, j = x + 1; i <= 7 && j <= 7; i++, j++)
 	{
-		std::cout << "Current Turn: " << currentTurn << '\n';
 		std::cout << "Piece at " << j << ", " << i << ": " << static_cast<int>(currentBoard.get(j, i)) << '\n';
 
 		if (static_cast<int>(currentBoard.get(j, i)) != 0)
@@ -221,7 +219,173 @@ std::vector<std::pair<int, int>> getPossibleBishopMoves(int x, int y, Board& cur
 	// Checks down left
 	for (int i = y + 1, j = x - 1; i <= 7 && j >= 0; i++, j--)
 	{
-		std::cout << "Current Turn: " << currentTurn << '\n';
+		std::cout << "Piece at " << j << ", " << i << ": " << static_cast<int>(currentBoard.get(j, i)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(j, i)) != 0)
+		{
+			if (canAttack(j, i, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {j, i});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {j, i});
+		}
+	}
+
+	return possibleMoves;
+}
+
+std::vector<std::pair<int, int>> getPossibleQueenMoves(int x, int y, Board& currentBoard, int currentTurn)
+{
+	std::vector<std::pair<int, int>> possibleMoves{};
+
+	// Checks down
+	for (int i = y + 1; i <= 7; i++)
+	{
+		std::cout << "Piece at " << x << ", " << i << ": " << static_cast<int>(currentBoard.get(x, i)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(x, i)) != 0)
+		{
+			if (canAttack(x, i, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {x, i});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {x, i});
+		}
+	}
+
+	// Checks up
+	for (int i = y - 1; i >= 0; i--)
+	{
+		std::cout << "Piece at " << x << ", " << i << ": " << static_cast<int>(currentBoard.get(x, i)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(x, i)) != 0)
+		{
+			if (canAttack(x, i, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {x, i});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {x, i});
+		}
+	}
+
+	// Checks right
+	for (int i = x + 1; i <= 7; i++)
+	{
+		std::cout << "Piece at " << i << ", " << y << ": " << static_cast<int>(currentBoard.get(i, y)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(i, y)) != 0)
+		{
+			if (canAttack(i, y, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {i, y});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {i, y});
+		}
+	}
+
+	// Checks left
+	for (int i = x - 1; i >= 0; i--)
+	{
+		std::cout << "Piece at " << i << ", " << y << ": " << static_cast<int>(currentBoard.get(i, y)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(i, y)) != 0)
+		{
+			if (canAttack(i, y, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {i, y});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {i, y});
+		}
+	}
+
+	// Checks down right
+	for (int i = y + 1, j = x + 1; i <= 7 && j <= 7; i++, j++)
+	{
+		std::cout << "Piece at " << j << ", " << i << ": " << static_cast<int>(currentBoard.get(j, i)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(j, i)) != 0)
+		{
+			if (canAttack(j, i, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {j, i});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {j, i});
+		}
+	}
+
+	// Checks up right
+	for (int i = y - 1, j = x + 1; i >= 0 && j <= 7; i--, j++)
+	{
+		std::cout << "Piece at " << j << ", " << i << ": " << static_cast<int>(currentBoard.get(j, i)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(j, i)) != 0)
+		{
+			if (canAttack(j, i, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {j, i});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {j, i});
+		}
+	}
+
+	// Checks up left
+	for (int i = y - 1, j = x - 1; i >= 0 && j >= 0; i--, j--)
+	{
+		std::cout << "Piece at " << j << ", " << i << ": " << static_cast<int>(currentBoard.get(j, i)) << '\n';
+
+		if (static_cast<int>(currentBoard.get(j, i)) != 0)
+		{
+			if (canAttack(j, i, currentBoard, currentTurn))
+			{
+				possibleMoves.push_back(std::pair<int, int> {j, i});
+			}
+
+			break;
+		}
+		else
+		{
+			possibleMoves.push_back(std::pair<int, int> {j, i});
+		}
+	}
+
+	// Checks down left
+	for (int i = y + 1, j = x - 1; i <= 7 && j >= 0; i++, j--)
+	{
 		std::cout << "Piece at " << j << ", " << i << ": " << static_cast<int>(currentBoard.get(j, i)) << '\n';
 
 		if (static_cast<int>(currentBoard.get(j, i)) != 0)
@@ -244,32 +408,40 @@ std::vector<std::pair<int, int>> getPossibleBishopMoves(int x, int y, Board& cur
 
 std::vector<std::pair<int, int>> possibleMoveManager(int x, int y, Board& currentBoard, int currentTurn)
 {
-	if (currentBoard.get(x, y) & ROOK)
+	uint8_t piece = currentBoard.get(x, y) & PIECE_MASK;
+
+	if (piece == ROOK)
 	{
+		std::cout << "I'm a rook!" << "\n";
 		return getPossibleRookMoves(x, y, currentBoard, currentTurn);
 	}
-	if (currentBoard.get(x, y) & KNIGHT)
+	if (piece == KNIGHT)
 	{
+		std::cout << "I'm a knight!" << "\n";
 		// not right, but put it here for now so I don't get errors
 		return getPossibleRookMoves(x, y, currentBoard, currentTurn);
 	}
-	if (currentBoard.get(x, y) & BISHOP)
+	if (piece == BISHOP)
 	{
+		std::cout << "I'm a bishop!" << "\n";
 		return getPossibleBishopMoves(x, y, currentBoard, currentTurn);
 	}
-	if (currentBoard.get(x, y) & QUEEN)
+	if (piece == QUEEN)
 	{
+		std::cout << "I'm a queen!" << "\n";
+		return getPossibleQueenMoves(x, y, currentBoard, currentTurn);
+	}
+	if (piece == KING)
+	{
+		std::cout << "I'm a king!" << "\n";
 		// not right, but put it here for now so I don't get errors
 		return getPossibleRookMoves(x, y, currentBoard, currentTurn);
 	}
-	if (currentBoard.get(x, y) & KING)
+	if (piece == PAWN)
 	{
+		std::cout << "I'm a pawn!" << "\n";
 		// not right, but put it here for now so I don't get errors
 		return getPossibleRookMoves(x, y, currentBoard, currentTurn);
 	}
-	if (currentBoard.get(x, y) & PAWN)
-	{
-		// not right, but put it here for now so I don't get errors
-		return getPossibleRookMoves(x, y, currentBoard, currentTurn);
-	}
+	return {};
 }
