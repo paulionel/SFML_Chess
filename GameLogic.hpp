@@ -17,5 +17,8 @@ constexpr uint8_t BLACK = 8;      // 0000 1000
 constexpr uint8_t WHITE = 0;      // 0000 0000
 
 bool canAttack(int x, int y, Board& currentBoard, int currentTurn);
+bool canHighlight(int x, int y, Board& currentBoard, int currentTurn);
 std::vector<std::pair<int, int>> getPossibleRookMoves(int x, int y, Board& currentBoard, int currentTurn);
+std::vector<std::pair<int, int>> getPossibleBishopMoves(int x, int y, Board& currentBoard, int currentTurn);
+std::vector<std::pair<int, int>> possibleMoveManager(int x, int y, Board& currentBoard, int currentTurn);
 

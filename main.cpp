@@ -19,13 +19,11 @@ int main()
     game.makeMove(0, 3, 0, 4);
     game.makeMove(4, 5, 4, 4);
     game.makeMove(7, 1, 7, 2);
+    game.makeMove(2, 7, 3, 4);
+    game.makeMove(6, 1, 6, 2);
 
-    std::vector<std::pair<int, int>> possibleMoves = getPossibleRookMoves(4, 4, game.getCurrentBoard(), game.getCurrentTurn());
 
-    for (const auto& [x, y] : possibleMoves)
-    {
-        std::cout << "(" << x << ", " << y << ")\n";
-    }
+    std::vector<std::pair<int, int>> possibleMoves{};
 
     sf::Texture textures[16];
 
@@ -77,14 +75,17 @@ int main()
                     std::cout << "Selected Y Position: " << selectedY << '\n';
 
                     // if (static_cast<int>(board[(mouseY / 100) - 1][(mouseX / 100) - 1]) != 0)
-                    if (static_cast<int>(game.getPieceAt((mouseX / 100) - 1,(mouseY / 100) - 1)) != 0)
+                    if (static_cast<int>(game.getPieceAt((mouseX / 100) - 1,(mouseY / 100) - 1)) != 0 && canHighlight((mouseX / 100) - 1, (mouseY / 100) - 1, game.getCurrentBoard(), game.getCurrentTurn()))
                     {
+
                         std::cout << "Hit Piece: " << static_cast<int>(game.getPieceAt((mouseX / 100) - 1, (mouseY / 100) - 1)) << '\n';
                         highlighted = true;
+                        possibleMoves = possibleMoveManager((mouseX / 100) - 1, (mouseY / 100) - 1, game.getCurrentBoard(), game.getCurrentTurn());
                     } 
                     else
                     {
                         highlighted = false;
+                        possibleMoves.clear();
                     } 
                 }
             }
