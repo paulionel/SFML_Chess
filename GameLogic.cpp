@@ -65,6 +65,18 @@ bool canAttack(int x, int y, Board& currentBoard, int currentTurn)
 	}
 }
 
+bool isInbounds(int x, int y)
+{
+	if (x >= 0 && x <= 7 && y >= 0 && y <= 7) 
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 std::vector<std::pair<int, int>> getPossibleRookMoves(int x, int y, Board& currentBoard, int currentTurn)
 {
 	std::vector<std::pair<int, int>> possibleMoves{};
@@ -233,6 +245,43 @@ std::vector<std::pair<int, int>> getPossibleBishopMoves(int x, int y, Board& cur
 		else
 		{
 			possibleMoves.push_back(std::pair<int, int> {j, i});
+		}
+	}
+
+	return possibleMoves;
+}
+
+std::vector<std::pair<int, int>> getPossibleKnightMoves(int x, int y, Board& currentBoard, int currentTurn)
+{
+	std::vector<std::pair<int, int>> possibleMoves{};
+
+	std::vector<std::pair<int, int>> knightMoves = {
+		{-1, -2}, {1, -2},
+		{2, -1},  {2, 1},
+		{-1, 2},  {1, 2},
+		{-2, -1}, {-2, 1}
+	};
+
+	for (auto& move : knightMoves)
+	{
+		int newX = x + move.first;
+		int newY = y + move.second;
+
+		// 1. Check bounds
+		if (!isInbounds(newX, newY))
+			continue;
+
+		uint8_t piece = currentBoard.get(newX, newY);
+
+		// 2. Empty square
+		if (piece == EMPTY)
+		{
+			possibleMoves.push_back(std::pair<int, int> {newX, newY});
+		}
+		// 3. Occupied → check if attackable
+		else if (canAttack(newX, newY, currentBoard, currentTurn))
+		{
+			possibleMoves.push_back(std::pair<int, int> {newX, newY});
 		}
 	}
 
@@ -419,7 +468,7 @@ std::vector<std::pair<int, int>> possibleMoveManager(int x, int y, Board& curren
 	{
 		std::cout << "I'm a knight!" << "\n";
 		// not right, but put it here for now so I don't get errors
-		return getPossibleRookMoves(x, y, currentBoard, currentTurn);
+		return getPossibleKnightMoves(x, y, currentBoard, currentTurn);
 	}
 	if (piece == BISHOP)
 	{
