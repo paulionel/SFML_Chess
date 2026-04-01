@@ -9,11 +9,17 @@ Game::Game() : currentTurn(0)
 
 void Game::makeMove(int fromX, int fromY, int toX, int toY)
 {
-    int pieceToMove = currentBoard.get(fromX, fromY); // Pretty sure this should be a uint8_t rather than a int, but i'll look into it later
+    uint8_t pieceToMove = currentBoard.get(fromX, fromY);
+
+    Move move{ fromX, fromY, toX, toY, currentBoard.get(fromX, fromY) };
+    moveHistory.push_back(move);
+
     currentBoard.set(fromX, fromY, 0);
     currentBoard.set(toX, toY, pieceToMove);
-    currentTurn += 1;
+
+    currentTurn++;
     gameHistory.push_back(currentBoard);
+
 }
 
 void Game::printHistory() const

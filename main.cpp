@@ -11,23 +11,6 @@ int main()
 
     Game game;
 
-    game.makeMove(0, 6, 0, 4);
-    game.makeMove(0, 1, 0, 2);
-    game.makeMove(0, 7, 0, 5);
-    game.makeMove(0, 2, 0, 3);
-    game.makeMove(0, 5, 4, 5);
-    game.makeMove(0, 3, 0, 4);
-    game.makeMove(4, 5, 4, 4);
-    game.makeMove(7, 1, 7, 2);
-    game.makeMove(2, 7, 3, 4);
-    game.makeMove(6, 1, 6, 2);
-    game.makeMove(2, 6, 2, 5);
-    game.makeMove(5, 1, 5, 2);
-    game.makeMove(3, 6, 3, 5);
-    game.makeMove(4, 1, 4, 2);
-    game.makeMove(3, 7, 2, 3);
-    game.makeMove(3, 1, 3, 2);
-
     std::vector<std::pair<int, int>> possibleMoves{};
 
     sf::Texture textures[16];
