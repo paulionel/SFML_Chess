@@ -77,6 +77,18 @@ bool isInbounds(int x, int y)
 	}
 }
 
+bool containsPossibleMove(const std::vector<std::pair<int, int>>& moves, int x, int y)
+{
+	for (const auto& move : moves)
+	{
+		if (move.first == x && move.second == y)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 std::vector<std::pair<int, int>> getPossibleRookMoves(int x, int y, Board& currentBoard, int currentTurn)
 {
 	std::vector<std::pair<int, int>> possibleMoves{};

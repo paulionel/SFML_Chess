@@ -53,6 +53,9 @@ int main()
     int selectedX{};
     int selectedY{};
 
+    int highlightedX{};
+    int highlightedY{};
+
     while (window.isOpen())
     {
         
@@ -79,11 +82,22 @@ int main()
                     std::cout << "Selected X Position: " << selectedX << '\n';
                     std::cout << "Selected Y Position: " << selectedY << '\n';
 
-                    // if (static_cast<int>(board[(mouseY / 100) - 1][(mouseX / 100) - 1]) != 0)
-                    if (static_cast<int>(game.getPieceAt((mouseX / 100) - 1,(mouseY / 100) - 1)) != 0 && canHighlight((mouseX / 100) - 1, (mouseY / 100) - 1, game.getCurrentBoard(), game.getCurrentTurn()))
+                    if (containsPossibleMove(possibleMoves, selectedX - 1, selectedY - 1))
+                    {
+                        std::cout << "Move exists!\n";
+
+                        game.makeMove(highlightedX - 1, highlightedY - 1, selectedX - 1, selectedY - 1);
+
+                        highlighted = false;
+                        possibleMoves.clear();
+                    }
+                    else if (static_cast<int>(game.getPieceAt((mouseX / 100) - 1,(mouseY / 100) - 1)) != 0 && canHighlight((mouseX / 100) - 1, (mouseY / 100) - 1, game.getCurrentBoard(), game.getCurrentTurn()))
                     {
 
                         std::cout << "Hit Piece: " << static_cast<int>(game.getPieceAt((mouseX / 100) - 1, (mouseY / 100) - 1)) << '\n';
+
+                        highlightedX = mouseX / 100;
+                        highlightedY = mouseY / 100;
                         highlighted = true;
                         possibleMoves = possibleMoveManager((mouseX / 100) - 1, (mouseY / 100) - 1, game.getCurrentBoard(), game.getCurrentTurn());
                     } 
@@ -101,7 +115,7 @@ int main()
         drawBoard(window);
 
         if (highlighted)
-            drawHighlight(window, selectedX, selectedY);
+            drawHighlight(window, highlightedX, highlightedY);
 
         drawPieces(window, textures, game.getCurrentBoard());
 

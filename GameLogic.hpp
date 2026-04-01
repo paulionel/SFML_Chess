@@ -19,6 +19,7 @@ constexpr uint8_t WHITE = 0;      // 0000 0000
 bool canAttack(int x, int y, Board& currentBoard, int currentTurn);
 bool canHighlight(int x, int y, Board& currentBoard, int currentTurn);
 bool isInbounds(int x, int y);
+bool containsPossibleMove(const std::vector<std::pair<int, int>>& moves, int x, int y);
 std::vector<std::pair<int, int>> getPossibleRookMoves(int x, int y, Board& currentBoard, int currentTurn);
 std::vector<std::pair<int, int>> getPossibleBishopMoves(int x, int y, Board& currentBoard, int currentTurn);
 std::vector<std::pair<int, int>> getPossibleQueenMoves(int x, int y, Board& currentBoard, int currentTurn);
