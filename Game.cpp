@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "GameLogic.hpp"
 #include <iostream>
 
 Game::Game() : currentTurn(0)
@@ -10,6 +11,20 @@ Game::Game() : currentTurn(0)
 void Game::makeMove(int fromX, int fromY, int toX, int toY)
 {
     uint8_t pieceToMove = currentBoard.get(fromX, fromY);
+
+    bool isPawn = (pieceToMove & PIECE_MASK) == PAWN;
+    bool isBlack = pieceToMove & BLACK;
+    int direction = isBlack ? 1 : -1;
+
+    // En Passant capture check
+    if (isPawn && fromX != toX && currentBoard.get(toX, toY) == EMPTY)
+    {
+        int capturedPawnY = toY - direction;
+
+        std::cout << "En Passant capture at: " << toX << ", " << capturedPawnY << "\n";
+
+        currentBoard.set(toX, capturedPawnY, EMPTY); // remove captured pawn
+    }
 
     Move move{ fromX, fromY, toX, toY, currentBoard.get(fromX, fromY) };
     moveHistory.push_back(move);

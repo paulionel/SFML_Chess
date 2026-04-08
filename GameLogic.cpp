@@ -93,24 +93,67 @@ std::vector<std::pair<int, int>> getPossiblePawnMoves(int x, int y, Board& curre
 {
 	std::vector<std::pair<int, int>> possibleMoves{};
 
-	if (currentBoard.get(x, y) & BLACK)
+	uint8_t piece = currentBoard.get(x, y);
+	bool isBlack = piece & BLACK;
+
+	int direction = isBlack ? 1 : -1;
+	int startRow = isBlack ? 1 : 6;
+
+	// Forward 1
+	int forwardY = y + direction;
+
+	if (isInbounds(x, forwardY) && currentBoard.get(x, forwardY) == EMPTY)
 	{
-		// Piece is black
-		if (y == 1)
+		possibleMoves.push_back({ x, forwardY });
+
+		// Forward 2 (only if first move AND path is clear)
+		int doubleY = y + (2 * direction);
+		if (y == startRow && currentBoard.get(x, doubleY) == EMPTY)
 		{
-			possibleMoves.push_back(std::pair<int, int> {x, y + 1});
-			possibleMoves.push_back(std::pair<int, int> {x, y + 2});
+			possibleMoves.push_back({ x, doubleY });
 		}
 	}
-	else
-	{
-		// Piece is white
-		if (y == 6)
-		{
-			possibleMoves.push_back(std::pair<int, int> {x, y - 1});
-			possibleMoves.push_back(std::pair<int, int> {x, y - 2});
-		}
 
+	// Captures (diagonals)
+	for (int dx : {-1, 1})
+	{
+		int newX = x + dx;
+		int newY = y + direction;
+
+		if (!isInbounds(newX, newY))
+			continue;
+
+		uint8_t target = currentBoard.get(newX, newY);
+
+		if (target != EMPTY && canAttack(newX, newY, currentBoard, currentTurn))
+		{
+			possibleMoves.push_back({ newX, newY });
+		}
+	}
+
+	// En Passant
+	if (!moveHistory.empty())
+	{
+		const Move& lastMove = moveHistory.back();
+
+		// Check if last move was a pawn
+		if ((lastMove.piece & PIECE_MASK) == PAWN)
+		{
+			int moveDistance = std::abs(lastMove.toY - lastMove.fromY);
+
+			// Must be a 2-square move
+			if (moveDistance == 2)
+			{
+				// Pawn must be next to us
+				if (lastMove.toY == y && std::abs(lastMove.toX - x) == 1)
+				{
+					int enPassantX = lastMove.toX;
+					int enPassantY = y + direction;
+
+					possibleMoves.push_back({ enPassantX, enPassantY });
+				}
+			}
+		}
 	}
 
 	return possibleMoves;
@@ -306,18 +349,18 @@ std::vector<std::pair<int, int>> getPossibleKnightMoves(int x, int y, Board& cur
 		int newX = x + move.first;
 		int newY = y + move.second;
 
-		// 1. Check bounds
+		// Check bounds
 		if (!isInbounds(newX, newY))
 			continue;
 
 		uint8_t piece = currentBoard.get(newX, newY);
 
-		// 2. Empty square
+		// Empty square
 		if (piece == EMPTY)
 		{
 			possibleMoves.push_back(std::pair<int, int> {newX, newY});
 		}
-		// 3. Occupied → check if attackable
+		// Occupied > check if attackable
 		else if (canAttack(newX, newY, currentBoard, currentTurn))
 		{
 			possibleMoves.push_back(std::pair<int, int> {newX, newY});
