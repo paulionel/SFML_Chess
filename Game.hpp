@@ -18,6 +18,7 @@ public:
     void makeMove(int, int, int, int);
     uint8_t getPieceAt(int, int);
     Board& getCurrentBoard();
+    const std::vector<Move>& getMoveHistory() const;
     int getCurrentTurn();
 
 private:

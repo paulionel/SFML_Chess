@@ -53,3 +53,8 @@ int Game::getCurrentTurn()
 {
     return currentTurn;
 }
+
+const std::vector<Move>& Game::getMoveHistory() const
+{
+    return moveHistory;
+}

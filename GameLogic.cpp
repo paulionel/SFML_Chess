@@ -89,6 +89,33 @@ bool containsPossibleMove(const std::vector<std::pair<int, int>>& moves, int x, 
 	return false;
 }
 
+std::vector<std::pair<int, int>> getPossiblePawnMoves(int x, int y, Board& currentBoard, int currentTurn, const std::vector<Move>& moveHistory)
+{
+	std::vector<std::pair<int, int>> possibleMoves{};
+
+	if (currentBoard.get(x, y) & BLACK)
+	{
+		// Piece is black
+		if (y == 1)
+		{
+			possibleMoves.push_back(std::pair<int, int> {x, y + 1});
+			possibleMoves.push_back(std::pair<int, int> {x, y + 2});
+		}
+	}
+	else
+	{
+		// Piece is white
+		if (y == 6)
+		{
+			possibleMoves.push_back(std::pair<int, int> {x, y - 1});
+			possibleMoves.push_back(std::pair<int, int> {x, y - 2});
+		}
+
+	}
+
+	return possibleMoves;
+}
+
 std::vector<std::pair<int, int>> getPossibleRookMoves(int x, int y, Board& currentBoard, int currentTurn)
 {
 	std::vector<std::pair<int, int>> possibleMoves{};
@@ -467,7 +494,7 @@ std::vector<std::pair<int, int>> getPossibleQueenMoves(int x, int y, Board& curr
 	return possibleMoves;
 }
 
-std::vector<std::pair<int, int>> possibleMoveManager(int x, int y, Board& currentBoard, int currentTurn)
+std::vector<std::pair<int, int>> possibleMoveManager(int x, int y, Board& currentBoard, int currentTurn, const std::vector<Move>& moveHistory)
 {
 	uint8_t piece = currentBoard.get(x, y) & PIECE_MASK;
 
@@ -479,7 +506,6 @@ std::vector<std::pair<int, int>> possibleMoveManager(int x, int y, Board& curren
 	if (piece == KNIGHT)
 	{
 		std::cout << "I'm a knight!" << "\n";
-		// not right, but put it here for now so I don't get errors
 		return getPossibleKnightMoves(x, y, currentBoard, currentTurn);
 	}
 	if (piece == BISHOP)
@@ -501,8 +527,7 @@ std::vector<std::pair<int, int>> possibleMoveManager(int x, int y, Board& curren
 	if (piece == PAWN)
 	{
 		std::cout << "I'm a pawn!" << "\n";
-		// not right, but put it here for now so I don't get errors
-		return getPossibleRookMoves(x, y, currentBoard, currentTurn);
+		return getPossiblePawnMoves(x, y, currentBoard, currentTurn, moveHistory);
 	}
 	return {};
 }

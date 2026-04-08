@@ -82,7 +82,7 @@ int main()
                         highlightedX = mouseX / 100;
                         highlightedY = mouseY / 100;
                         highlighted = true;
-                        possibleMoves = possibleMoveManager((mouseX / 100) - 1, (mouseY / 100) - 1, game.getCurrentBoard(), game.getCurrentTurn());
+                        possibleMoves = possibleMoveManager((mouseX / 100) - 1, (mouseY / 100) - 1, game.getCurrentBoard(), game.getCurrentTurn(), game.getMoveHistory());
                     } 
                     else
                     {
